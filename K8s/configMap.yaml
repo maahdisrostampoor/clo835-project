@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  MONGO_URI: mongodb://mongo-svc:27017/project
+  NODE_ENV: production

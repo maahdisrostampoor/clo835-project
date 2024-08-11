@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-frontend-deployment
+  namespace: fullstack-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-frontend
+  template:
+    metadata:
+      labels:
+        app: nginx-frontend
+    spec:
+      containers:
+      - name: nginx-frontend
+        image: maahdisrostampoor/nginx-frontend:1.0
+        ports:
+        - containerPort: 80
