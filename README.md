@@ -33,6 +33,7 @@ This repository contains a fullstack application that includes a frontend, backe
 
 - **pv.yaml**: PersistentVolume configuration for MongoDB to ensure data is not lost when the MongoDB pod is restarted.
 - **secret.yaml**: Stores sensitive data, such as MongoDB credentials, securely within Kubernetes.
+- **configMap.yaml**: Contains environment-specific configurations for the Node.js application, such as MongoDB connection strings.
 
 ## Getting Started
 
@@ -58,8 +59,18 @@ docker build -t <Your-docker-Hub-account>/nginx-frontend .
 docker push <Your-docker-Hub-account>/nginx-frontend
 ```
 # Deploy to Kubernetes
+```bash
 ## Create the namespace
 kubectl create namespace fullstack-app
+
+## Deploy Config map
+kubectl apply -f K8s/configMap.yaml -n fullstack-app
+
+## Deploy Persistent Volume and persistent Volume Claim
+kubectl apply -f K8s/pv.yaml -n fullstack-app
+
+## Deploy Secret
+kubectl apply -f K8s/secret.yaml -n fullstack-app
 
 ## Deploy MongoDB
 kubectl apply -f K8s/Mongodb/ -n fullstack-app
@@ -69,3 +80,18 @@ kubectl apply -f K8s/Nodejs/ -n fullstack-app
 
 ## Deploy Nginx frontend
 kubectl apply -f K8s/Nginx/ -n fullstack-app
+```
+
+# Verify Deployments
+Ensure all pods are running correctly:
+
+```bash
+kubectl get pods -n fullstack-app
+```
+# Access the frontend application:
+
+```bash
+kubectl get svc -n fullstack-app
+minukube ip
+```
+Access the application using the NodePort exposed by the Nginx service. **http://\<minikubeip\>:\<node-port\>**
