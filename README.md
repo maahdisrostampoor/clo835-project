@@ -94,4 +94,4 @@ kubectl get pods -n fullstack-app
 kubectl get svc -n fullstack-app
 minukube ip
 ```
-Access the application using the NodePort exposed by the Nginx service. **http://\<minikubeip\>:\<node-port\>**
+Access the application using the NodePort exposed by the Nginx service. **http://\<minikubeip\>:\<node-port-nginx\>**
